@@ -29,6 +29,7 @@
 @property (nonatomic, assign, readwrite) BOOL isAnimating;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) BOOL forceFullWidth;
 @property (nonatomic, strong) UIView *customView;
 
 @end
@@ -112,10 +113,16 @@
                                                   options:NSStringDrawingUsesLineFragmentOrigin
                                                attributes:@{NSFontAttributeName: self.font}
                                                   context:nil];
+        if (self.forceFullWidth) {
+            self.textBounds = CGRectMake(0, self.textBounds.origin.y, self.maxWidth, self.textBounds.size.height);
+        }
     } else if (self.attributedText != nil) {
         self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                                             options:NSStringDrawingUsesLineFragmentOrigin
                                                             context:nil];
+        if (self.forceFullWidth) {
+            self.textBounds = CGRectMake(0, self.textBounds.origin.y, self.maxWidth, self.textBounds.size.height);
+        }
     } else if (self.customView != nil) {
         self.textBounds = self.customView.frame;
     }
@@ -302,26 +309,28 @@
     }];
 }
 
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame {
     self.attributedText = nil;
     self.text = text;
     self.accessibilityLabel = text;
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
+    self.forceFullWidth = forceFullWidth;
     _fromFrame = frame;
     self.customView = nil;
 
     [self show];
 }
 
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame {
     self.text = nil;
     self.attributedText = text;
     self.accessibilityLabel = [text string];
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
+    self.forceFullWidth = forceFullWidth;
     _fromFrame = frame;
     self.customView = nil;
 
@@ -334,6 +343,7 @@
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = customView.frame.size.width;
+    self.forceFullWidth = NO;
     _fromFrame = frame;
     self.customView = customView;
 
@@ -348,8 +358,8 @@
     [self setup];
 }
 
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
-    [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
+    [self showText:text direction:direction maxWidth:maxWidth forceFullWidth:forceFullWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
     if (interval > 0) {
         self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
@@ -360,8 +370,8 @@
     }
 }
 
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
-    [self showAttributedText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
+    [self showAttributedText:text direction:direction maxWidth:maxWidth forceFullWidth:forceFullWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
     if (interval > 0){
         self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval

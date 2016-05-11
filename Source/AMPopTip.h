@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * @param view The view that will hold the popover.
  * @param frame The originating frame. The popover's arrow will point to the center of this frame.
  */
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame;
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame;
 
 /** Show the popover
  *
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * @param view The view that will hold the popover.
  * @param frame The originating frame. The popover's arrow will point to the center of this frame.
  */
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame;
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame;
 
 /** Show the popover with a custom view
  *
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * @param frame The originating frame. The popover's arrow will point to the center of this frame.
  * @param interval The time interval that determines when the poptip will self-dismiss
  */
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
 
 /** Show the popover
  *
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * @param frame The originating frame. The popover's arrow will point to the center of this frame.
  * @param interval The time interval that determines when the poptip will self-dismiss
  */
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth forceFullWidth:(BOOL)forceFullWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
 
 /** Show the popover with a custom view
  *
