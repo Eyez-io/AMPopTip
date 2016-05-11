@@ -113,15 +113,22 @@
                                                   options:NSStringDrawingUsesLineFragmentOrigin
                                                attributes:@{NSFontAttributeName: self.font}
                                                   context:nil];
+
         if (self.forceFullWidth) {
-            self.textBounds = CGRectMake(0, self.textBounds.origin.y, self.maxWidth, self.textBounds.size.height);
+            self.textBounds = CGRectMake(self.padding + self.edgeInsets.left,
+                                         self.padding + self.edgeInsets.top,
+                                         self.maxWidth - (self.padding * 2) - (self.edgeInsets.left + self.edgeInsets.right),
+                                         self.textBounds.size.height - (self.padding * 2) - (self.edgeInsets.top + self.edgeInsets.bottom));
         }
     } else if (self.attributedText != nil) {
         self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                                             options:NSStringDrawingUsesLineFragmentOrigin
                                                             context:nil];
         if (self.forceFullWidth) {
-            self.textBounds = CGRectMake(0, self.textBounds.origin.y, self.maxWidth, self.textBounds.size.height);
+            self.textBounds = CGRectMake(self.padding + self.edgeInsets.left,
+                                         self.padding + self.edgeInsets.top,
+                                         self.maxWidth - (self.padding * 2) - (self.edgeInsets.left + self.edgeInsets.right),
+                                         self.textBounds.size.height - (self.padding * 2) - (self.edgeInsets.top + self.edgeInsets.bottom));
         }
     } else if (self.customView != nil) {
         self.textBounds = self.customView.frame;
