@@ -118,7 +118,7 @@
             self.textBounds = CGRectMake(self.padding + self.edgeInsets.left,
                                          self.padding + self.edgeInsets.top,
                                          self.maxWidth - (self.padding * 2) - (self.edgeInsets.left + self.edgeInsets.right),
-                                         self.textBounds.size.height - (self.padding * 2) - (self.edgeInsets.top + self.edgeInsets.bottom));
+                                         self.textBounds.size.height);
         }
     } else if (self.attributedText != nil) {
         self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
@@ -128,7 +128,7 @@
             self.textBounds = CGRectMake(self.padding + self.edgeInsets.left,
                                          self.padding + self.edgeInsets.top,
                                          self.maxWidth - (self.padding * 2) - (self.edgeInsets.left + self.edgeInsets.right),
-                                         self.textBounds.size.height - (self.padding * 2) - (self.edgeInsets.top + self.edgeInsets.bottom));
+                                         self.textBounds.size.height);
         }
     } else if (self.customView != nil) {
         self.textBounds = self.customView.frame;
