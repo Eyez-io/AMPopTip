@@ -226,6 +226,12 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, strong) UIColor *popoverColor UI_APPEARANCE_SELECTOR;
 
+/** Popover Background Image
+ *
+ * Holds the background image for the popover.
+ */
+@property (nonatomic, strong) UIImage* backgroundImage UI_APPEARANCE_SELECTOR;
+
 /** Popover Border Color
  *
  * Holds the UIColor for the popover's bordedr

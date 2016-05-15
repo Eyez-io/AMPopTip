@@ -70,6 +70,7 @@
     _font = kDefaultFont;
     _textColor = kDefaultTextColor;
     _popoverColor = kDefaultBackgroundColor;
+    _backgroundImage = NULL;
     _borderColor = kDefaultBorderColor;
     _borderWidth = kDefaultBorderWidth;
     _radius = kDefaultRadius;
@@ -267,6 +268,10 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    if (self.backgroundImage) {
+        [self.backgroundImage drawInRect:rect];
+    }
+    
     if (self.isRounded) {
         BOOL showHorizontally = self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight;
         self.radius = (self.frame.size.height - (showHorizontally ? 0 : self.arrowSize.height)) / 2 ;
